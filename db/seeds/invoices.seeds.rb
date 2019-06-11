@@ -1,4 +1,4 @@
-5000.times do
+100.times do
   payment = Payment.new
   payment.payment_type = PaymentType.all[rand(0..3)]
   payment.amount = 0
@@ -9,6 +9,7 @@
   invoice.payment = payment
   invoice.store = Store.all[(rand(0..6))]
   invoice.customer = Customer.all[rand(0..49)]
+  invoice.date_order = Faker::Date.backward(1095)
   invoice.save
   4.times do
     order = OrderDetail.new

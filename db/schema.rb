@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_165123) do
+ActiveRecord::Schema.define(version: 2019_06_11_033734) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_05_14_165123) do
     t.integer "amount", precision: 38
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date_order"
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["employee_id"], name: "index_invoices_on_employee_id"
     t.index ["payment_id"], name: "index_invoices_on_payment_id"
@@ -130,6 +131,15 @@ ActiveRecord::Schema.define(version: 2019_05_14_165123) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "taxes", force: :cascade do |t|
+    t.string "description"
+    t.integer "category_id", precision: 38
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "value", precision: 38
+    t.index ["category_id"], name: "index_taxes_on_category_id"
+  end
+
   add_foreign_key "customers", "companies"
   add_foreign_key "departments", "regions"
   add_foreign_key "invoices", "customers"
@@ -143,4 +153,5 @@ ActiveRecord::Schema.define(version: 2019_05_14_165123) do
   add_foreign_key "payment_details", "payments"
   add_foreign_key "payments", "payment_types"
   add_foreign_key "products", "categories"
+  add_foreign_key "taxes", "categories"
 end
